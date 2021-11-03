@@ -1,11 +1,16 @@
-<script>
+<script context="module">
+
 import Router from "svelte-spa-router";
+import {wrap} from 'svelte-spa-router/wrap';
 import CurrencyListView from "./views/CurrencyListView.svelte";
 import PaymentView from "./views/PaymentView.svelte";
 
+let currency = {};
+let amount = 0;
+
 const routes = {
     '/': CurrencyListView,
-    '/pay': PaymentView
+    '/pay': PaymentView,
 }
 
 </script>
@@ -40,5 +45,6 @@ const routes = {
 		box-shadow: 3px 3px 20px 5px rgba(0, 0, 0, 0.05);
         overflow: hidden;
 	}
+
 
 </style>
