@@ -22,6 +22,7 @@ const routes = {
         display: flex;
 		height: 100%;
 		background: #F5F5F7;
+        overflow: hidden;
     }
 
 	.container {
@@ -34,10 +35,10 @@ const routes = {
 		background-color: white;
 		font-family: 'Roboto', sans-serif;
 		border-radius: 10px;
-		overflow: scroll;
 		height: 500px;
 		width: 350px;
 		box-shadow: 3px 3px 20px 5px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
 	}
 
 </style>

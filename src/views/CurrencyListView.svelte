@@ -78,7 +78,8 @@
     list-style-type: none;
     margin: 0; /* Remove margins */
     padding: 10px;
-    overflow: scroll;
+    overflow-y: auto;
+	overflow-x: hidden;
   }
 
   .widget-title {
