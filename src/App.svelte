@@ -1,136 +1,43 @@
 <script>
-	import "./api";
+import Router from "svelte-spa-router";
+import CurrencyListView from "./views/CurrencyListView.svelte";
+import PaymentView from "./views/PaymentView.svelte";
 
-	import "cryptocurrency-icons";
-	// import { Btc, Eth, Bch, Ltc, Doge, Dai, Usdt, Usdc, Generic
-	// } from "svelte-cryptoicon"
-
-	let currencies = [
-		{
-			name: "Bitcoin",
-			id: "btc",
-		},
-		{
-			name: "Bitcoin Cash",
-			id: "bch",
-		},
-		{
-			name: "Ethereum",
-			id: "eth",
-		},
-		{
-			name: "Litecoin",
-			id: "ltc",
-		},
-		{
-			name: "Dogecoin",
-			id: "doge",
-		},
-		{
-			name: "Dai",
-			id: "dai",
-		},
-		{
-			name: "USDT",
-			id: "usdt",
-		},
-		{
-			name: "USDC",
-			id: "usdc",
-		},
-		{
-			name: "TerraUSD",
-			id: "ust",
-			generic: true
-		},
-	]
+const routes = {
+    '/': CurrencyListView,
+    '/pay': PaymentView
+}
 
 </script>
 
-
-<main>
-
-	<div class="widget">
-
-		<div align="center">
-			<h1 class="widget-title">Pay with Crypto</h1>
-		</div>
-
-		<div class="currency-list">
-
-			{#each currencies as currency}
-
-			<div class="currency-item">
-				<img src={
-				currency.generic == true ? `../assets/generic.svg` : `./assets/${currency.id}.svg` } 
-				width="32px" alt={`Pay with ${currency.name}`}/>
-				<div class="currency-item-text">{currency.name}</div>
-			</div>
-
-			{/each}
-
-		</div>
-	</div>
-
-</main>
-
+<div id="app">
+    <div class="container">
+        <Router {routes}/>
+    </div>
+</div>
 
 <style>
-	@font-face {
-		font-family: 'Alliance';
-		src: url('../styles/AllianceNo2-Regular.woff2') format('woff2'), 
-		url('../styles/AllianceNo2-Regular.woff') format('woff');
-		font-weight: 400;
-		font-style: normal;
-	}
 
-	.widget {
-		background-color: white;
-		color: black;
-		font-family: 'Alliance', sans-serif;
-		padding: 10px;
-		border-radius: 5px;
-		border-width: 1px;
-		border-color: gray;
-		max-width: 500px;
-		max-height: 800px;
-	}
+    #app {
+        display: flex;
+		height: 100%;
+		background: #F5F5F7;
+    }
 
-	.currency-list {
-		list-style-type: none;
-		margin: 0; /* Remove margins */
-		padding: 0;
-		overflow: scroll;
-	}
-
-	.widget-title {
-		font-weight: 'bold';
-		font-size: 18pt;
-	}
-
-	.currency-item {
-		height: 64px;
-		padding-left: 20px;
-		padding-right: 20px;
-		background-color: #f4f4f4;
-		margin-left: 4px;
-		margin-right: 4px;
-		margin-top: 5px;
-		margin-bottom: 5px;
-		border-radius: 8px;
+	.container {
 		display: flex;
-		flex-direction: row;
-		align-items: center;
-	}
-
-	.currency-item:hover {
-		background-color: #eeeeee;
-		cursor: pointer;
-	}
-
-	.currency-item-text {
-		font-size: 14pt;
-		margin-left: 14px;
+		flex-direction: column;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: auto;
+		margin-bottom: auto;
+		background-color: white;
+		font-family: 'Roboto', sans-serif;
+		border-radius: 10px;
+		overflow: scroll;
+		height: 500px;
+		width: 350px;
+		box-shadow: 3px 3px 20px 5px rgba(0, 0, 0, 0.05);
 	}
 
 </style>
