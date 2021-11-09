@@ -10,7 +10,7 @@ const parsed = parse($querystring);
 // amount: native/base currency amount
 let { currency, baseCurrency, amount } = parsed;
 
-let server = "localhost:3000"
+let server = new URL(window.location.href).hostname
 
 function createPaymentIntent() {
     return fetch(`http://${server}/api/createPaymentIntent`, {
