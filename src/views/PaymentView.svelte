@@ -3,27 +3,48 @@ import QrCode from "svelte-qrcode";
 import { querystring } from "svelte-spa-router";
 import { parse } from "qs";
 
+var amountDue = 0
+
 const parsed = parse($querystring);
 
-// currency: {name, id} object
-// amount: native currency amount
-let { currency, amount } = parsed;
-console.log(JSON.stringify(currency))
+// amount: native/base currency amount
+let { currency, baseCurrency, amount } = parsed;
+
+let server = "localhost:3000"
 
 function createPaymentIntent() {
-    fetch(`https://${server}/create-payment-intent`, {
+    return fetch(`http://${server}/api/createPaymentIntent`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            currencyId: currency.id,
-            amount: amount
+            currency: currency.id,
+            basePrice: 20,
+            base: baseCurrency
         })
-    }).then(function(result) {
-        return result.json();
     })
+    .then(response => response.json())
+    .then(data => {
+        console.log(`DATA ${JSON.stringify(data)}`)
+        return data
+    })
+    // .catch(() => {
+    //     return result.json();
+    // })
 }
+
+createPaymentIntent().then(res => {
+    console.log(res)
+
+    if (res.amount == null) {
+        // le error message here
+        console.log("FAILED TO LOAD DUE TO REASONS")
+    }
+    else {
+        amountDue = res.amount
+    }
+});
 
 </script>
 
@@ -49,7 +70,7 @@ function createPaymentIntent() {
         <br style="height: 40px;"/>
         <div class="hcentered">
             <div style="display:flex;flex-direction:row">
-                <div class="money-text selectable">{amount}</div>
+                <div class="money-text selectable">{amountDue.toPrecision(4)}</div>
                 <div class="currency-suffix-text">{currency.id.toUpperCase()}</div>
             </div>
         </div>

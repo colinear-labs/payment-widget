@@ -5,8 +5,8 @@ import {wrap} from 'svelte-spa-router/wrap';
 import CurrencyListView from "./views/CurrencyListView.svelte";
 import PaymentView from "./views/PaymentView.svelte";
 
-let currency = {};
-let amount = 0;
+const urlParams = new URLSearchParams(window.location.search);
+export const metadata = urlParams.get("data")
 
 const routes = {
     '/': CurrencyListView,
