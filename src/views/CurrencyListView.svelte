@@ -1,7 +1,6 @@
 <script>
     import { push, replace } from 'svelte-spa-router'
     import { stringify } from 'qs'
-    import { query_selector_all } from 'svelte/internal'
 
     let currencies = [
         {
@@ -102,20 +101,25 @@
 		</div>
 	</header>-->
 
-<div align="center" />
+<div align="center">
 
-<div class="currency-list noselect">
-    {#each currencies as currency}
-        <div
-            class="currency-item"
-            on:click={() => {
-                push(`/pay?${stringify({ currency, amount: 0.0001, baseCurrency: "usd" })}`)
-            }}>
-            <img
-                src={currency.generic ? `../assets/currencies/generic.svg` : `./assets/currencies/${currency.id}.svg`}
-                alt={`Pay with ${currency.name}`}
-                style="width:26px;" />
-            <div class="currency-item-text">{currency.name}</div>
-        </div>
-    {/each}
+	<div class="searchbar">
+		
+	</div>
+
+	<div class="currency-list noselect">
+		{#each currencies as currency}
+			<div
+				class="currency-item"
+				on:click={() => {
+					push(`/pay?${stringify({ currency, amount: 0.0001, baseCurrency: "usd" })}`)
+				}}>
+				<img
+					src={currency.generic ? `../assets/currencies/generic.svg` : `./assets/currencies/${currency.id}.svg`}
+					alt={`Pay with ${currency.name}`}
+					style="width:26px;" />
+				<div class="currency-item-text">{currency.name}</div>
+			</div>
+		{/each}
+	</div>
 </div>
