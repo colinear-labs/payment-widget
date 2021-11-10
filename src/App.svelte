@@ -1,36 +1,27 @@
 <script context="module">
+  import Router from 'svelte-spa-router'
+  import { wrap } from 'svelte-spa-router/wrap'
+  import CurrencyListView from './views/CurrencyListView.svelte'
+  import PaymentView from './views/PaymentView.svelte'
 
-import Router from "svelte-spa-router";
-import {wrap} from 'svelte-spa-router/wrap';
-import CurrencyListView from "./views/CurrencyListView.svelte";
-import PaymentView from "./views/PaymentView.svelte";
+  const urlParams = new URLSearchParams(window.location.search)
+  export const metadata = urlParams.get('data')
 
-const urlParams = new URLSearchParams(window.location.search);
-export const metadata = urlParams.get("data")
-
-const routes = {
+  const routes = {
     '/': CurrencyListView,
     '/pay': PaymentView,
-}
-
+  }
 </script>
 
-<div id="app">
-    <div class="container">
-        <Router {routes}/>
-    </div>
-</div>
-
 <style>
+  /* #app {
+    display: flex;
+    height: 100%;
+    background: #f5f5f7;
+    overflow: hidden;
+  }
 
-    #app {
-        display: flex;
-		height: 100%;
-		background: #F5F5F7;
-        overflow: hidden;
-    }
-
-	.container {
+  .container {
 		display: flex;
 		flex-direction: column;
 		margin-left: auto;
@@ -44,7 +35,17 @@ const routes = {
 		width: 350px;
 		box-shadow: 3px 3px 20px 5px rgba(0, 0, 0, 0.05);
         overflow: hidden;
-	}
+	}*/
 
-
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
 </style>
+
+<div class="container">
+  <Router {routes} />
+</div>

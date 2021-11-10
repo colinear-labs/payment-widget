@@ -4,11 +4,13 @@ import { querystring } from "svelte-spa-router";
 import { parse } from "qs";
 
 var amountDue = 0
+var toAddress = ""
+var qrContent = ""
 
 const parsed = parse($querystring);
 
 // amount: native/base currency amount
-let { currency, baseCurrency, amount } = parsed;
+let { currency, baseCurrency, baseAmount } = parsed;
 
 let server = new URL(window.location.href).hostname
 
@@ -26,7 +28,6 @@ function createPaymentIntent() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(`DATA ${JSON.stringify(data)}`)
         return data
     })
     // .catch(() => {
@@ -34,15 +35,45 @@ function createPaymentIntent() {
     // })
 }
 
-createPaymentIntent().then(res => {
-    console.log(res)
+const currencyPrefixes = {
+    btc:  "bitcoin",
+    eth:  "ethereum",
+    ltc:  "litecoin",
+    bch:  "bitcoincash",
+    doge: "dogecoin",
+    dai:  "dai",
+    usdt: "tether",
+    usdc: "usdc",
+}
 
-    if (res.amount == null) {
+function prefixIncluded(currency) {
+    return Object.keys(currencyPrefixes).includes(currency)
+}
+
+function generateQrContent(currency, address, amount) {
+    if (prefixIncluded(currency)) {
+        return `${currencyPrefixes[currency]}:${address}?amount=${amount}`
+    } else {
+        return address
+    }
+    
+}
+
+createPaymentIntent().then(res => {
+
+    if (
+        res.amount == null ||
+        res.address == null
+        ) {
         // le error message here
         console.log("FAILED TO LOAD DUE TO REASONS")
     }
+
     else {
         amountDue = res.amount
+        toAddress = res.address
+        qrContent = generateQrContent(currency.id, toAddress, amountDue)
+        console.log(qrContent)
     }
 });
 
@@ -65,12 +96,12 @@ createPaymentIntent().then(res => {
     <div style="display:flex;flex-direction:column">
         <div class="hcentered noselect">
             <!-- Probably fix the QR resolution or something later -->
-            <QrCode value="https://google.com" size=200/>
+            <QrCode value={qrContent} size=200/>
         </div>
         <br style="height: 40px;"/>
         <div class="hcentered">
             <div style="display:flex;flex-direction:row">
-                <div class="money-text selectable">{amountDue.toPrecision(4)}</div>
+                <div class="money-text selectable">{amountDue}</div>
                 <div class="currency-suffix-text">{currency.id.toUpperCase()}</div>
             </div>
         </div>
