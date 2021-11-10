@@ -1,6 +1,7 @@
 <script>
   import { push, replace } from 'svelte-spa-router'
   import { stringify } from 'qs'
+import LanguageDropdown from '../components/LanguageDropdown.svelte'
 
   let searchQuery = ''
 
@@ -232,10 +233,5 @@
     {/each}
   </div>
 </div>
-<button class="language-dropdown">
-  English
-  <img
-    class="dropdown-icon"
-    src="assets/chevron-down.svg"
-    alt="Select language" />
-</button>
+
+<LanguageDropdown/>

@@ -1,4 +1,6 @@
-<script context="module">
+<script>
+import { setContext } from 'svelte';
+
   import Router from 'svelte-spa-router'
   import { wrap } from 'svelte-spa-router/wrap'
   import CurrencyListView from './views/CurrencyListView.svelte'
@@ -6,6 +8,8 @@
 
   const urlParams = new URLSearchParams(window.location.search)
   export const metadata = urlParams.get('data')
+
+  setContext('language', 'en')
 
   const routes = {
     '/': CurrencyListView,
