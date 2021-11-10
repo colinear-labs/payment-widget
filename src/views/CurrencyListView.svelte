@@ -35,11 +35,11 @@ import { getContext } from 'svelte';
       id: 'dai',
     },
     {
-      name: 'USDT',
+      name: 'Tether',
       id: 'usdt',
     },
     {
-      name: 'USDC',
+      name: 'USD Coin',
       id: 'usdc',
     },
     {
