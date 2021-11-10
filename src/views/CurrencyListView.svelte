@@ -1,7 +1,8 @@
 <script>
   import { push, replace } from 'svelte-spa-router'
   import { stringify } from 'qs'
-import LanguageDropdown from '../components/LanguageDropdown.svelte'
+  import LanguageDropdown from '../components/LanguageDropdown.svelte'
+import { getContext } from 'svelte';
 
   let searchQuery = ''
 
@@ -160,7 +161,7 @@ import LanguageDropdown from '../components/LanguageDropdown.svelte'
   }
 </style>
 
-<h1>Merchant XYZ</h1>
+<h1>{getContext('merchantName')}</h1>
 <h3>Please select the coin you will be using.</h3>
 <div class="content">
   <header>

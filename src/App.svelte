@@ -7,9 +7,10 @@ import { setContext } from 'svelte';
   import PaymentView from './views/PaymentView.svelte'
 
   const urlParams = new URLSearchParams(window.location.search)
-  export const metadata = urlParams.get('data')
 
   setContext('language', 'en')
+  setContext('metadata', urlParams.get('data'))
+  setContext('merchantName', urlParams.get('merchantName'))
 
   const routes = {
     '/': CurrencyListView,
