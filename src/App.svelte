@@ -9,8 +9,11 @@ import { setContext } from 'svelte';
   const urlParams = new URLSearchParams(window.location.search)
 
   setContext('language', 'en')
-  setContext('metadata', urlParams.get('data'))
+  setContext
+  setContext('metadata', urlParams.get('metadata'))
   setContext('merchantName', urlParams.get('merchantName'))
+  setContext('amount', parseFloat(urlParams.get('amount')))
+  setContext('base', urlParams.get('base'))
 
   const routes = {
     '/': CurrencyListView,

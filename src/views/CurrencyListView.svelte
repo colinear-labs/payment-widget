@@ -5,6 +5,7 @@
 import { getContext } from 'svelte';
 
   let searchQuery = ''
+  let amount = getContext('amount')
 
   let currenciesPopular = [
     {
@@ -188,7 +189,7 @@ import { getContext } from 'svelte';
           on:click={() => {
             push(`/pay?${stringify({
                 currency,
-                amount: 20,
+                amount: amount,
                 baseCurrency: 'usd',
               })}`)
           }}>
@@ -217,7 +218,7 @@ import { getContext } from 'svelte';
           on:click={() => {
             push(`/pay?${stringify({
                 currency,
-                amount: 20,
+                amount: amount,
                 baseCurrency: 'usd',
               })}`)
           }}>

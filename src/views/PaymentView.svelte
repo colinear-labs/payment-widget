@@ -2,6 +2,7 @@
 import QrCode from "svelte-qrcode";
 import { querystring } from "svelte-spa-router";
 import { parse } from "qs";
+import { getContext } from "svelte";
 
 var amountDue = 0
 var toAddress = ""
@@ -10,9 +11,9 @@ var qrContent = ""
 const parsed = parse($querystring);
 
 // amount: native/base currency amount
-let { currency, baseCurrency, baseAmount } = parsed;
+let { currency, baseCurrency } = parsed;
 
-let server = new URL(window.location.href).hostname
+let server = new URL(window.location.href).host
 
 function createPaymentIntent() {
     return fetch(`http://${server}/api/createPaymentIntent`, {
@@ -22,7 +23,7 @@ function createPaymentIntent() {
         },
         body: JSON.stringify({
             currency: currency.id,
-            basePrice: 20,
+            basePrice: getContext('amount'),
             base: baseCurrency
         })
     })
