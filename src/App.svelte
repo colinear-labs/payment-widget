@@ -1,5 +1,5 @@
 <script>
-import { setContext } from 'svelte';
+import { getContext, setContext } from 'svelte';
 
   import Router from 'svelte-spa-router'
   import { wrap } from 'svelte-spa-router/wrap'
@@ -9,7 +9,6 @@ import { setContext } from 'svelte';
   const urlParams = new URLSearchParams(window.location.search)
 
   setContext('language', 'en')
-  setContext
   setContext('metadata', urlParams.get('metadata'))
   setContext('merchantName', urlParams.get('merchantName'))
   setContext('amount', parseFloat(urlParams.get('amount')))

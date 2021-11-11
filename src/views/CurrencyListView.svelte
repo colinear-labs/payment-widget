@@ -2,7 +2,15 @@
   import { push, replace } from 'svelte-spa-router'
   import { stringify } from 'qs'
   import LanguageDropdown from '../components/LanguageDropdown.svelte'
-import { getContext } from 'svelte';
+  import { getContext } from 'svelte';
+
+  let acceptingCurrencies = []
+  let server = new URL(window.location.href).host
+  fetch(`http://${server}/api/accepting`, { method: 'GET',  })
+    .then(response => response.json())
+    .then(data => {
+      acceptingCurrencies = data
+    })
 
   let searchQuery = ''
   let amount = getContext('amount')
@@ -177,7 +185,8 @@ import { getContext } from 'svelte';
   <div class="currency-container">
     <div class="title">Popular Currencies</div>
     {#each currenciesPopular as currency}
-      {#if searchQuery == '' || (searchQuery.length > 0 && (currency.name
+      {#if acceptingCurrencies.includes(currency.id) && 
+      (searchQuery == '' || (searchQuery.length > 0) && (currency.name
             .toLowerCase()
             .includes(
               searchQuery.toLowerCase(),
@@ -204,9 +213,12 @@ import { getContext } from 'svelte';
         </div>
       {/if}
     {/each}
-    <div class="title" style="margin-top: 16px;">Other Currencies</div>
+    {#if currenciesOther.length > 0}
+      <div class="title" style="margin-top: 16px;">Other Currencies</div>
+    {/if}
     {#each currenciesOther as currency}
-      {#if searchQuery == '' || (searchQuery.length > 0 && (currency.name
+      {#if acceptingCurrencies.includes(currency.id) && 
+      (searchQuery == '' || (searchQuery.length > 0) && (currency.name
             .toLowerCase()
             .includes(
               searchQuery.toLowerCase(),
