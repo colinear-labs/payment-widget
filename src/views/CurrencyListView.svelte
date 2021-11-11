@@ -51,6 +51,10 @@
       name: 'USD Coin',
       id: 'usdc',
     },
+    // {
+    //   name: 'Ampleforth',
+    //   id: 'ampl',
+    // },
     {
       name: 'TerraUSD',
       id: 'ust',
