@@ -183,7 +183,7 @@
         type="text"
         placeholder="Search for Cryptocurrency"
         bind:value={searchQuery} />
-      <img class="search-icon" src="assets/search.svg" alt="" />
+      <img class="search-icon" src="./assets/search.svg" alt="" />
     </div>
   </header>
   <div class="currency-container">
@@ -208,12 +208,12 @@
           }}>
           <div class="selection-container">
             <img
-              src={currency.generic ? `../assets/currencies/generic.svg` : `./assets/currencies/${currency.id}.svg`}
+              src={currency.generic ? `./assets/currencies/generic.svg` : `./assets/currencies/${currency.id}.svg`}
               alt={`Pay with ${currency.name}`}
               class="currency-icon" />
             <div class="currency-item-text">{currency.name}</div>
           </div>
-          <img class="chevron-icon" src="assets/chevron-right.svg" alt="" />
+          <img class="chevron-icon" src="./assets/chevron-right.svg" alt="" />
         </div>
       {/if}
     {/each}
@@ -240,12 +240,12 @@
           }}>
           <div class="selection-container">
             <img
-              src={currency.generic ? `../assets/currencies/generic.svg` : `./assets/currencies/${currency.id}.svg`}
+              src={currency.generic ? `./assets/currencies/generic.svg` : `./assets/currencies/${currency.id}.svg`}
               alt={`Pay with ${currency.name}`}
               class="currency-icon" />
             <div class="currency-item-text">{currency.name}</div>
           </div>
-          <img class="chevron-icon" src="assets/chevron-right.svg" alt="" />
+          <img class="chevron-icon" src="./assets/chevron-right.svg" alt="" />
         </div>
       {/if}
     {/each}

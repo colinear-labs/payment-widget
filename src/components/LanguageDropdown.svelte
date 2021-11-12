@@ -16,6 +16,6 @@ import { getContext } from "svelte";
   {languages[language]}
   <img
     class="dropdown-icon"
-    src="assets/chevron-down.svg"
+    src="./assets/chevron-down.svg"
     alt="Select language" />
 </button>
