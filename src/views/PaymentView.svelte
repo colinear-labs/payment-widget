@@ -84,7 +84,7 @@ createPaymentIntent().then(res => {
     <div class="payment-header">
         <img 
         src={currency.generic
-          ? `../assets/currencies/generic.svg`
+          ? `./assets/currencies/generic.svg`
           : `./assets/currencies/${currency.id}.svg`}
         alt=""
         style="width:40px;"
