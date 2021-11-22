@@ -2,7 +2,7 @@
   import QrCode from "svelte-qrcode";
   import { querystring } from "svelte-spa-router";
   import { parse } from "qs";
-  import { getContext } from "svelte";
+  import { getContext, setContext } from "svelte";
   import { push } from "svelte-spa-router";
 
   // set to false later
@@ -64,17 +64,32 @@
     }
   }
 
-  createPaymentIntent().then((res) => {
-    if (res.amount == null || res.address == null) {
-      // le error message here
-      console.log("FAILED TO LOAD DUE TO REASONS");
-    } else {
-      amountDue = res.amount;
-      toAddress = res.address;
-      qrContent = generateQrContent(currency.id, toAddress, amountDue);
-      console.log(qrContent);
-    }
-  });
+    if (typeof getContext('intents')[currency.name] === "undefined") {
+    let intents = getContext('intents')
+    createPaymentIntent().then((res) => {
+      if (res.amount == null || res.address == null) {
+        // le error message here
+        console.log("FAILED TO LOAD DUE TO REASONS");
+      } else {
+        amountDue = res.amount;
+        toAddress = res.address;
+        qrContent = generateQrContent(currency.id, toAddress, amountDue);
+        console.log(qrContent);
+      }
+    }).then(() => {
+      intents[currency.name] = {
+        amount: amountDue,
+        address: toAddress 
+      }
+    });
+    setContext('intents', intents)
+
+  } else {
+    toAddress = getContext('intents')[currency.name].address
+    amountDue = getContext('intents')[currency.name].amount
+    qrContent = generateQrContent(currency.id, toAddress, amountDue);
+    console.log(qrContent);
+  }
 </script>
 
 <!--<div class="noselect">
