@@ -18,6 +18,24 @@ translations = {
         }
     },
 
+    es: {
+        coinnames: {
+            btc: "Bitcoin",
+            eth: "Ethereum",
+            ltc: "Litecoin",
+            dai: "Dai",
+            usdt: "Tether",
+            usdc: "Moneda USD",
+            ust: "TerraUSD",
+        },
+        paymentScreen: {
+            detailsText: "En Espera de Pago",
+            paymentAwaiting: "Awaiting Payment",
+            paymentPending: "Pago Pendiente",
+            paymentVerified: "Pago Verificado",
+        }
+    },
+
     zh_CN: {
         coinnames: {
             btc: "比特币",
