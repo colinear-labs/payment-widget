@@ -55,11 +55,11 @@
     //   name: 'Ampleforth',
     //   id: 'ampl',
     // },
-    {
-      name: 'TerraUSD',
-      id: 'ust',
-      generic: true,
-    },
+    // {
+    //   name: 'TerraUSD',
+    //   id: 'ust',
+    //   generic: true,
+    // },
   ]
 </script>
 
