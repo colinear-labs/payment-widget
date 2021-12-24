@@ -15,6 +15,7 @@
   setContext('merchantName', urlParams.get('merchantName'))
   setContext('amount', parseFloat(urlParams.get('amount')))
   setContext('base', urlParams.get('base'))
+  setContext('secure', urlParams.get('secure'))
 
   const routes = {
     '/': CurrencyListView,

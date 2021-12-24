@@ -41,6 +41,13 @@
     // })
   }
 
+  // reads status from payment intent websocket endpoint and displays it
+  const statusWs = new WebSocket(`ws:${getContext('secure') ? 's' : '' }//${server}/ws/${toAddress}`)
+  statusWs.addEventListener('message', (event) => {
+    console.log("RECEIVED DATA")
+    console.log(event.data)
+  })
+
   const currencyPrefixes = {
     btc: "bitcoin",
     eth: "ethereum",
@@ -64,7 +71,7 @@
     }
   }
 
-    if (typeof getContext('intents')[currency.name] === "undefined") {
+  if (typeof getContext('intents')[currency.name] === "undefined") {
     let intents = getContext('intents')
     createPaymentIntent().then((res) => {
       if (res.amount == null || res.address == null) {
