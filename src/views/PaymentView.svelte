@@ -13,6 +13,19 @@
   var toAddress = "";
   var qrContent = "";
 
+
+  // possible values:
+  var paymentStatus = "empty";
+  const validPaymentStatuses = [
+    "empty",
+    "pending",
+    "verified",
+    "error",
+  ]
+
+  // var paymentStatusStyle = ""
+  var paymentStatusStyle = ""
+
   const parsed = parse($querystring);
 
   // amount: native/base currency amount
@@ -46,6 +59,10 @@
   statusWs.addEventListener('message', (event) => {
     console.log("RECEIVED DATA")
     console.log(event.data)
+    if (validPaymentStatuses.includes(event.data.statusValue)) {
+      paymentStatus = event.data.statusValue
+      paymentStatusStyle = `status-${event.data.statusValue}`
+    }
   })
 
   const currencyPrefixes = {
@@ -204,9 +221,21 @@
           View Payment Details
           <img src="assets/chevron-right-small.svg" alt="" />
       </div>
-      <button class="btn">
+      <button class="btn {paymentStatusStyle}">
+        {#if paymentStatus == "empty"}
         <div class="loader" />
         Awaiting Payment
+        {:else if paymentStatus == "pending"}
+        <img src="assets/check.svg" class="payment-status-icon" alt="Payment detected"/>
+        Payment Detected 
+        {:else if paymentStatus == "verified"}
+        <img src="assets/shield.svg" class="payment-status-icon" alt="Payment detected"/>
+         
+        Payment Confirmed
+        {:else if paymentStatus == "error"}
+        <img src="assets/error-x.svg" class="payment-status-icon" alt="error"/>
+        Error
+        {/if}
       </button>
     </div>
   </div>
@@ -356,6 +385,21 @@
     font-size: 15px;
     font-weight: 500;
     margin-top: auto;
+  }
+
+  .status-pending {
+    color: #39ac39;
+    background: #edf8ed;
+  }
+  
+  .status-verified {
+    color: #00bfff;
+    background: #e6f9ff;
+  }
+
+  .status-error {
+    color: #e60000;
+    background: #ffe6e6;
   }
 
   .backdrop {
@@ -518,6 +562,12 @@
         align-items: center;
         padding: 30px 48px;
     } */
+
+  .payment-status-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+  }
 
   .loader,
   .loader:after {
